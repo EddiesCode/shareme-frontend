@@ -1,4 +1,5 @@
-import "./App.css"
+import Login from "./components/Login"
+import Home from "./container/Home"
 import { Routes, Route, useNavigate } from "react-router-dom"
 
 function App() {
