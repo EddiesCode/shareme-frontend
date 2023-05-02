@@ -1,7 +1,19 @@
 import "./App.css"
+import { Routes, Route, useNavigate } from "react-router-dom"
 
 function App() {
-  return <h1 className="text-3x1 font-bold underline">Hello world!</h1>
+  return (
+    <Routes>
+      <Route
+        path="login"
+        element={<Login />}
+      />
+      <Route
+        path="/"
+        element={<Home />}
+      />
+    </Routes>
+  )
 }
 
 export default App
