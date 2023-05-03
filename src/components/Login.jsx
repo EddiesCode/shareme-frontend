@@ -1,18 +1,18 @@
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google"
-import { useNavigate } from "react-router-dom"
-import { FcGoogle } from "react-icons/fc"
-import shareVideo from "../assets/share.mp4"
-import logo from "../assets/logo.png"
 import jwt_decode from "jwt-decode"
+import { FcGoogle } from "react-icons/fc"
+import { useNavigate } from "react-router-dom"
+import logo from "../assets/logo.png"
+import shareVideo from "../assets/share.mp4"
 import { client } from "../client"
 
 const Login = () => {
   const navigate = useNavigate()
 
   const responseGoogle = (response) => {
-    //console.log(response);
+    // console.log(response)
     const userObject = jwt_decode(response.credential)
-    //console.log(userObject);
+    console.log(userObject)
     localStorage.setItem("user", JSON.stringify(userObject))
     const { name, sub, picture } = userObject
     const doc = {
@@ -41,11 +41,7 @@ const Login = () => {
         />
         <div className="absolute top-0 bottom-0 left-0 right-0 flex flex-col items-center justify-center bg-blackOverlay">
           <div className="p-5">
-            <img
-              src={logo}
-              alt="logo"
-              className="130px"
-            />
+            <img src={logo} alt="logo" className="130px" />
           </div>
           <div className="shadow-2xl">
             <GoogleOAuthProvider
