@@ -4,15 +4,27 @@ import { FcGoogle } from "react-icons/fc"
 import shareVideo from "../assets/share.mp4"
 import logo from "../assets/logo.png"
 import jwt_decode from "jwt-decode"
+import { client } from "../client"
 
 const Login = () => {
-  const responseGoogle = (response) => {
-    console.log(response)
-    const userObject = jwt_decode(response.credential)
-    console.log(userObject)
-    // localStorage.setItem("user", JSON.stringify(response.profileObj))
+  const navigate = useNavigate()
 
-    // const { name, googleId, imageUrl } = response.profileObj
+  const responseGoogle = (response) => {
+    //console.log(response);
+    const userObject = jwt_decode(response.credential)
+    //console.log(userObject);
+    localStorage.setItem("user", JSON.stringify(userObject))
+    const { name, sub, picture } = userObject
+    const doc = {
+      _id: sub,
+      _type: "user",
+      userName: name,
+      image: picture,
+    }
+
+    client.createIfNotExists(doc).then(() => {
+      navigate("/", { replace: true })
+    })
   }
   return (
     // <div className="text-8xl">Hej</div>
