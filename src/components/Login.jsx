@@ -1,11 +1,19 @@
-import GoogleLogin from "react-google-login"
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google"
 import { useNavigate } from "react-router-dom"
 import { FcGoogle } from "react-icons/fc"
 import shareVideo from "../assets/share.mp4"
 import logo from "../assets/logo.png"
+import jwt_decode from "jwt-decode"
 
 const Login = () => {
-  const responseGoogle = (response) => {}
+  const responseGoogle = (response) => {
+    console.log(response)
+    const userObject = jwt_decode(response.credential)
+    console.log(userObject)
+    // localStorage.setItem("user", JSON.stringify(response.profileObj))
+
+    // const { name, googleId, imageUrl } = response.profileObj
+  }
   return (
     // <div className="text-8xl">Hej</div>
     <div className="flex flex-col items-center justify-start h-screen">
@@ -28,22 +36,25 @@ const Login = () => {
             />
           </div>
           <div className="shadow-2xl">
-            <GoogleLogin
+            <GoogleOAuthProvider
               clientId={import.meta.env.VITE_REACT_APP_GOOGLE_API_TOKEN}
-              render={(renderProps) => (
-                <button
-                  type="button"
-                  className="flex items-center justify-center p-3 rounded-lg outline-none cursor-pointer bg-mainColor"
-                  onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
-                >
-                  <FcGoogle className="mr/4" /> Sign in with Google
-                </button>
-              )}
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-              cookiePolicy="single_host_origin"
-            />
+            >
+              <GoogleLogin
+                render={(renderProps) => (
+                  <button
+                    type="button"
+                    className="flex items-center justify-center p-3 rounded-lg outline-none cursor-pointer bg-mainColor"
+                    onClick={renderProps.onClick}
+                    disabled={renderProps.disabled}
+                  >
+                    <FcGoogle className="mr/4" /> Sign in with Google
+                  </button>
+                )}
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy="single_host_origin"
+              />
+            </GoogleOAuthProvider>
           </div>
         </div>
       </div>
