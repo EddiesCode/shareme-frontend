@@ -37,7 +37,6 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
           window.location.reload()
           setSavingPost(false)
         })
-      console.log()
     }
   }
 
